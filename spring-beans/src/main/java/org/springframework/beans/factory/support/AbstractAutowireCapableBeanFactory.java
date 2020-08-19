@@ -1410,6 +1410,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		int resolvedAutowireMode = mbd.getResolvedAutowireMode();
 		//默认情况为AUTOWIRE_NO(0)
 		if (resolvedAutowireMode == AUTOWIRE_BY_NAME || resolvedAutowireMode == AUTOWIRE_BY_TYPE) {
+			//pvs中被ignore的依赖将被忽略掉,也就是by_name和by_type进行的依赖注入将被beanFactory.ignoreDependencyInterface影响
 			MutablePropertyValues newPvs = new MutablePropertyValues(pvs);
 			// Add property values based on autowire by name if applicable.
 			if (resolvedAutowireMode == AUTOWIRE_BY_NAME) {
@@ -1433,6 +1434,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+					//pvs参数在AutowiredAnnotationBeanPostProcessor注入依赖时完全没有用(直接从缓存里面拿的)
+					//也就是说 后面filterProperty的操作并不会影响到AutowiredAnnotationBeanPostProcessor的依赖注入
+					//这也是beanFactory.ignoreDependencyInterface不能影响@Autowired注入的原因
 					PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);
 					if (pvsToUse == null) {
 						if (filteredPds == null) {

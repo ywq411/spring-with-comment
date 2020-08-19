@@ -10,6 +10,7 @@ public class SpringDemo {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyConfiguration.class, AbstractConfiguration.class);
 		MyService service = context.getBean(MyService.class);
+		System.out.println(service.getDao());
 		MyDao dao = context.getBean(MyDao.class);
 		service.doSomething();
 	}

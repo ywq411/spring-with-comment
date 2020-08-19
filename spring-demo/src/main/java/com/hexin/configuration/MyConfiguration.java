@@ -16,8 +16,8 @@ import org.springframework.core.annotation.Order;
 @ComponentScan("com.hexin")
 public class MyConfiguration {
 
-	@Bean
-	public Service service2() {
-		return new MyService();
-	}
+//	@Bean
+//	public Service service2() {
+//		return new MyService();
+//	}
 }
