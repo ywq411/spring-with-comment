@@ -6,8 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 
-@Configuration
-@Import(ImportedConfig.class)
+@Import(MyConfiguration.class)
 public class AbstractConfiguration {
 	@Bean
 	public A post() {
@@ -15,7 +14,8 @@ public class AbstractConfiguration {
 	}
 
 	@Bean
-	public MyService2 myService2(){
+	public MyService2 myService2() {
+		post();
 		return new MyService2();
 	}
 }

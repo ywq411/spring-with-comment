@@ -1,5 +1,6 @@
 package com.hexin.configuration;
 
+import com.hexin.dao.MyDao;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
@@ -11,4 +12,11 @@ public class A implements BeanPostProcessor {
 		System.out.println("a before init " + beanName);
 		return bean;
 	}
+//	@Override
+//	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+//		if(bean instanceof MyDao){
+//			return new MyDao();
+//		}
+//		return bean;
+//	}
 }
